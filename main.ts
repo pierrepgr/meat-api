@@ -5,8 +5,16 @@ const server = restify.createServer({
     version: '1.0.0'
 })
 
+server.use(restify.plugins.queryParser())
+
 server.get('/hello', (req, resp, next) => {
-    resp.json({ message: 'hello' })
+    resp.json({ 
+        browser: req.userAgent(),
+        method: req.method,
+        url: req.href(),
+        path: req.path(),
+        query: req.query
+     })
     return next()
 })
 
