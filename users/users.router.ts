@@ -1,6 +1,7 @@
 import { Router } from '../common/router'
 import * as restify from 'restify'
 import { User } from './users.model'
+import { response } from 'spdy'
 
 class UserRouter extends Router {
     
@@ -44,6 +45,19 @@ class UserRouter extends Router {
                     }
                 }).then(user => {
                     resp.json(user)
+                    return next()
+                })
+        }) 
+
+        application.patch('/users/:id', (req, resp, next) => {
+            const options = { new: true }
+            User.findByIdAndUpdate(req.params.id, req.body, options)
+                .then(user => {
+                    if (user) {
+                        resp.json(user)
+                        return next()
+                    }
+                    resp.send(404)
                     return next()
                 })
         })
