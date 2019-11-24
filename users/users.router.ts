@@ -37,7 +37,7 @@ class UserRouter extends Router {
         application.put('/users/:id', (req, resp, next) => {
             const options = { overwrite: true }
             User.update({ _id: req.params.id }, req.body, options)
-                .exec().then(result => {
+                .exec().then((result: any) => {
                     if (result.n) {
                         return User.findById(req.params.id)
                     } else {
@@ -60,6 +60,18 @@ class UserRouter extends Router {
                     resp.send(404)
                     return next()
                 })
+        })
+
+        application.del('/users/:id', (req, resp, next) => {
+            User.remove({ _id: req.params.id })
+                .exec().then((cmdResult: any) => {
+                    if (cmdResult.result.n) {
+                        resp.send(204)
+                    } else {
+                        resp.send(404)
+                    }
+                    return next()
+                })    
         })
     }
 }

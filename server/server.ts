@@ -27,7 +27,6 @@ export class Server {
                 this.application.use(restify.plugins.bodyParser())
                 this.application.use(mergePatchBodyParser)
                 
-                // routes
                 for (let router of routers) {
                     router.applyRoutes(this.application)
                 }
