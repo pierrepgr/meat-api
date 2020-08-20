@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/pierrepgr/meat-api#readme",
   "dependencies": {
-    "bcrypt": "3.0.7",
+    "bcrypt": "5.0.0",
     "mongoose": "4.13.9",
     "restify": "6.3.4",
     "restify-errors": "5.0.0"
